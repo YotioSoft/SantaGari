@@ -1,7 +1,25 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.3
 
+void game() {
+	// キャラ画像読み込み
+	Texture img_santa	= Texture(U"img/santa.png");
+	Texture img_fighter = Texture(U"img/fighter.png");
+
+	// キャラの位置
+	Point pos_santa		= Point(Scene::Width()/2, 100);
+	Point pos_fighter	= Point(Scene::Width() / 2, 400);
+
+	while (System::Update()) {
+		// キャラクターの描画
+		img_santa.draw(Arg::center(pos_santa));
+		img_fighter.draw(Arg::center(pos_fighter));
+	}
+}
+
 void Main()
 {
+	game();
+
 	// 背景の色を設定 | Set background color
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
 
