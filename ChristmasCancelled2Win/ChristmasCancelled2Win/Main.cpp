@@ -1,18 +1,86 @@
 ﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.3
 
+#define FIGHTER_TOP_Y	300
+
+typedef struct _Charactor {
+	Texture texture;
+	Point position;
+} Charactor;
+
+struct Particle
+{
+	Vec2 start;
+
+	Vec2 velocity;
+};
+
+struct Spark : IEffect
+{
+	Array<Particle> m_particles;
+
+	Spark(const Vec2& start)
+		: m_particles(20)
+	{
+		for (auto& particle : m_particles)
+		{
+			particle.start = start + RandomVec2(10.0);
+
+			particle.velocity = RandomVec2(1.0) * Random(80.0);
+		}
+	}
+
+	bool update(double t) override
+	{
+		for (const auto& particle : m_particles)
+		{
+			const Vec2 pos = particle.start
+				+ particle.velocity * t + 0.5 * t * t * Vec2(0, 240);
+
+			Triangle(pos, 16.0, pos.x * 5_deg).draw(ColorF(1.0, 1.0 - 0.6 * t, 1.0 - t, 1.0 - t));
+		}
+
+		return t < 1.0;
+	}
+};
+
 void game() {
+	// キャラクター
+	Charactor santa;
+	Charactor fighter;
+
 	// キャラ画像読み込み
-	Texture img_santa	= Texture(U"img/santa.png");
-	Texture img_fighter = Texture(U"img/fighter.png");
+	santa.texture	= Texture(U"img/santa.png");
+	fighter.texture = Texture(U"img/fighter.png");
 
 	// キャラの位置
-	Point pos_santa		= Point(Scene::Width()/2, 100);
-	Point pos_fighter	= Point(Scene::Width() / 2, 400);
+	santa.position		= Point(Scene::Width()/2, 150);
+	fighter.position	= Point(Scene::Width() / 2, 400);
+
+	// 火花
+	Effect effect;
 
 	while (System::Update()) {
+		// 火花の描画
+		effect.add<Spark>(Point(fighter.position.x, fighter.position.y + fighter.texture.height() - 20));
+		effect.update();
+
 		// キャラクターの描画
-		img_santa.draw(Arg::center(pos_santa));
-		img_fighter.draw(Arg::center(pos_fighter));
+		santa.texture.draw(Arg::center(santa.position));
+		fighter.texture.draw(Arg::center(fighter.position));
+
+		// キャラクターの移動
+		if (KeyLeft.pressed() && fighter.position.x > 20) {
+			fighter.position.x -= 10;
+		}
+		if (KeyRight.pressed() && fighter.position.x < Scene::Width() - 20) {
+			fighter.position.x += 10;
+		}
+		if (KeyUp.pressed() && fighter.position.y > FIGHTER_TOP_Y) {
+			fighter.position.y -= 10;
+		}
+		if (KeyDown.pressed() && fighter.position.y < Scene::Height() - 50) {
+			fighter.position.y += 10;
+		}
 	}
 }
 
