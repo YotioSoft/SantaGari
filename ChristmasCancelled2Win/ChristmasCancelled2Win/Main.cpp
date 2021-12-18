@@ -44,30 +44,37 @@ struct Spark : IEffect
 };
 
 struct Bullet {
+	struct BulletPosition {
+		Point position;
+		Vec2 direction;
+	};
+
 	Texture m_texture;
-	Array<Point> m_position;
+	Array<BulletPosition> m_position;
 	double m_last_add_time;
 
-	Bullet() {
-		m_texture = Texture(U"img/bullet.png");
+	Bullet(String img_filepath) {
+		m_texture = Texture(img_filepath);
 		m_last_add_time = 0;
 	}
 
-	void add(Point fighter_position) {
-		if (Scene::Time() < m_last_add_time + 0.3) {
+	void add(Point fighter_position, Vec2 direction) {
+		if (Scene::Time() < m_last_add_time + 0.1) {
 			return;
 		}
 		m_last_add_time = Scene::Time();
-		m_position << fighter_position;
+		m_position << BulletPosition(fighter_position, direction);
 	}
 
 	void update() {
 		for (int i = 0; i < m_position.size(); i++) {
-			m_texture.draw(Arg::center(m_position[i]));
+			m_texture.draw(Arg::center(m_position[i].position));
 
-			m_position[i].y -= 10;
+			m_position[i].position.x += m_position[i].direction.x;
+			m_position[i].position.y += m_position[i].direction.y;
 
-			if (m_position[i].y < 0) {
+			if (m_position[i].position.x < 0 || m_position[i].position.y < 0 ||
+				m_position[i].position.y > Scene::Width() || m_position[i].position.y > Scene::Height()) {
 				m_position.remove_at(i);
 				i--;
 			}
@@ -92,7 +99,8 @@ void game() {
 	Effect effect;
 
 	// 弾丸
-	Bullet bullets;
+	Bullet santa_bullets(U"img/bullet.png");
+	Bullet fighter_bullets(U"img/bullet2.png");
 
 	while (System::Update()) {
 		// 火花の描画
@@ -117,12 +125,39 @@ void game() {
 			fighter.position.y += 10;
 		}
 
-		// 弾丸の発射
-		if (KeySpace.pressed()) {
-			bullets.add(Point(fighter.position.x, fighter.position.y - 32));
+		// サンタの移動
+		/*
+		if (RandomBool()) {
+			if (RandomBool()) {
+				if (RandomBool()) {
+					santa.position.x += 10;
+				}
+				else {
+					santa.position.x -= 10;
+				}
+			}
+			else {
+				if (RandomBool()) {
+					santa.position.y += 10;
+				}
+				else {
+					santa.position.y -= 10;
+				}
+			}
+		}*/
+
+		// サンタによる弾丸の発射
+		if (RandomBool()) {
+			santa_bullets.add(Point(santa.position.x, santa.position.y + 90), Vec2(Random<int>(-10, 10), 10));
 		}
 
-		bullets.update();
+		// プレイヤーによる弾丸の発射
+		if (KeySpace.pressed()) {
+			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -10));
+		}
+
+		santa_bullets.update();
+		fighter_bullets.update();
 	}
 }
 
