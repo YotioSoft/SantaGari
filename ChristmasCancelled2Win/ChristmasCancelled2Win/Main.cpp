@@ -3,7 +3,7 @@
 #define FIGHTER_TOP_Y	300
 
 typedef struct _Charactor {
-	Texture texture;
+	Texture texture = Texture(U"img/bullet.png");
 	Point position;
 } Charactor;
 
@@ -43,6 +43,38 @@ struct Spark : IEffect
 	}
 };
 
+struct Bullet {
+	Texture m_texture;
+	Array<Point> m_position;
+	double m_last_add_time;
+
+	Bullet() {
+		m_texture = Texture(U"img/bullet.png");
+		m_last_add_time = 0;
+	}
+
+	void add(Point fighter_position) {
+		if (Scene::Time() < m_last_add_time + 0.3) {
+			return;
+		}
+		m_last_add_time = Scene::Time();
+		m_position << fighter_position;
+	}
+
+	void update() {
+		for (int i = 0; i < m_position.size(); i++) {
+			m_texture.draw(Arg::center(m_position[i]));
+
+			m_position[i].y -= 10;
+
+			if (m_position[i].y < 0) {
+				m_position.remove_at(i);
+				i--;
+			}
+		}
+	}
+};
+
 void game() {
 	// キャラクター
 	Charactor santa;
@@ -58,6 +90,9 @@ void game() {
 
 	// 火花
 	Effect effect;
+
+	// 弾丸
+	Bullet bullets;
 
 	while (System::Update()) {
 		// 火花の描画
@@ -81,6 +116,13 @@ void game() {
 		if (KeyDown.pressed() && fighter.position.y < Scene::Height() - 50) {
 			fighter.position.y += 10;
 		}
+
+		// 弾丸の発射
+		if (KeySpace.pressed()) {
+			bullets.add(Point(fighter.position.x, fighter.position.y - 32));
+		}
+
+		bullets.update();
 	}
 }
 
