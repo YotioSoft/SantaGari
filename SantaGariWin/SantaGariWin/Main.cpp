@@ -5,6 +5,15 @@
 typedef struct _Charactor {
 	Texture texture = Texture(U"img/bullet.png");
 	Point position;
+	double hp;
+
+	void recover() {
+		hp+=0.5;
+	}
+
+	void damage() {
+		hp--;
+	}
 } Charactor;
 
 struct Particle
@@ -109,6 +118,10 @@ void game() {
 	santa.position = Point(Scene::Width() / 2, 150);
 	fighter.position = Point(Scene::Width() / 2, 400);
 
+	// キャラのHPの初期値
+	santa.hp = 100;
+	fighter.hp = 100;
+
 	// 火花
 	Effect effect;
 
@@ -173,8 +186,12 @@ void game() {
 		santa_bullets.update();
 		fighter_bullets.update();
 
-		santa_bullets.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size());
-		fighter_bullets.isHit({ santa.position.x - 20, santa.position.y - 100 }, santa.texture.size());
+		if (santa_bullets.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size())) {
+			fighter.damage();
+		}
+		if (fighter_bullets.isHit({ santa.position.x - 20, santa.position.y - 100 }, santa.texture.size())) {
+			santa.damage();
+		}
 	}
 }
 
