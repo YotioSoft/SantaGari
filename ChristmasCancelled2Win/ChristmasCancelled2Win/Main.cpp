@@ -80,6 +80,20 @@ struct Bullet {
 			}
 		}
 	}
+
+	bool isHit(Point pos, Size size) {
+		for (int i = 0; i < m_position.size(); i++) {
+			if (m_position[i].position.x >= pos.x && m_position[i].position.y >= pos.y &&
+				m_position[i].position.x <= pos.x + size.x && m_position[i].position.y <= pos.y + size.y) {
+
+				m_position.remove_at(i);
+				i--;
+
+				return true;
+			}
+		}
+		return false;
+	}
 };
 
 void game() {
@@ -158,6 +172,9 @@ void game() {
 
 		santa_bullets.update();
 		fighter_bullets.update();
+
+		santa_bullets.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size());
+		fighter_bullets.isHit({ santa.position.x - 20, santa.position.y - 100}, santa.texture.size());
 	}
 }
 
