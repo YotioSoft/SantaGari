@@ -1,7 +1,7 @@
 /include
 /lib
-ChristmasCancelled2Mac/DerivedData
-ChristmasCancelled2Win/.vs/
+SantaGariMac/DerivedData
+SantaGariWin/.vs/
 *.ilk
 *.pdb
 *.res
@@ -9,7 +9,7 @@ ChristmasCancelled2Win/.vs/
 *.obj
 *.log
 *.tlog
-ChristmasCancelled2Win/Intermediate
+SantaGariWin/Intermediate
 
 # Xcode
 #
