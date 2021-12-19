@@ -6,13 +6,26 @@ typedef struct _Charactor {
 	Texture texture = Texture(U"img/bullet.png");
 	Point position;
 	double hp;
+	double m_t;
 
 	void recover() {
-		hp+=0.5;
+		if (hp >= 100) {
+			hp = 100;
+			return;
+		}
+		if (Scene::Time() < m_t + 1.0) {
+			return;
+		}
+		hp += 1;
+		m_t = Scene::Time();
 	}
 
 	void damage() {
-		hp--;
+		if (hp < 0) {
+			hp = 0;
+			return;
+		}
+		hp -= 2;
 	}
 } Charactor;
 
@@ -183,14 +196,25 @@ void game() {
 			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -10));
 		}
 
+		// HPの表示
+		Rect(Scene::Width() / 2, 10, -santa.hp * 2, 10).draw(Palette::Red);			// サンタ
+		Rect(Scene::Width() / 2, 10, fighter.hp * 2, 10).draw(Palette::Green);		// プレイヤー
+
+		// 当たり判定
 		santa_bullets.update();
 		fighter_bullets.update();
 
 		if (santa_bullets.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size())) {
 			fighter.damage();
 		}
+		else {
+			fighter.recover();
+		}
 		if (fighter_bullets.isHit({ santa.position.x - 20, santa.position.y - 100 }, santa.texture.size())) {
 			santa.damage();
+		}
+		else {
+			santa.recover();
 		}
 	}
 }
