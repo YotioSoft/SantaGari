@@ -6,7 +6,7 @@ typedef struct _Charactor {
 	Texture texture = Texture(U"img/bullet.png");
 	Point position;
 	double hp;
-	double m_t;
+	double m_t = 0.0;
 
 	void recover() {
 		if (hp >= 100) {
@@ -29,15 +29,12 @@ typedef struct _Charactor {
 	}
 } Charactor;
 
-struct Particle
-{
+struct Particle {
 	Vec2 start;
-
 	Vec2 velocity;
 };
 
-struct Spark : IEffect
-{
+struct Spark : IEffect {
 	Array<Particle> m_particles;
 
 	Spark(const Vec2& start)
@@ -67,7 +64,7 @@ struct Spark : IEffect
 
 struct Bullet {
 	struct BulletPosition {
-		Point position;
+		Vec2 position;
 		Vec2 direction;
 	};
 
@@ -91,7 +88,7 @@ struct Bullet {
 	void update() {
 		for (int i = 0; i < m_position.size(); i++) {
 			m_texture.draw(Arg::center(m_position[i].position));
-
+			
 			m_position[i].position.x += m_position[i].direction.x;
 			m_position[i].position.y += m_position[i].direction.y;
 
@@ -142,6 +139,10 @@ void game() {
 	Bullet santa_bullets(U"img/bullet.png");
 	Bullet fighter_bullets(U"img/bullet2.png");
 
+	// サンタの移動
+	double santa_moved_t = -10.0;
+	Vec2 santa_move = { 0, 0 };
+
 	while (System::Update()) {
 		// 火花の描画
 		effect.add<Spark>(Point(fighter.position.x, fighter.position.y + fighter.texture.height() - 20));
@@ -166,34 +167,52 @@ void game() {
 		}
 
 		// サンタの移動
-		/*
-		if (RandomBool()) {
+		if (Scene::Time() > santa_moved_t + 1.0) {
+			santa_move = { 0, 0 };
+
 			if (RandomBool()) {
 				if (RandomBool()) {
-					santa.position.x += 10;
+					if (RandomBool()) {
+						santa_move.x = 5;
+					}
+					else {
+						santa_move.x = -5;
+					}
 				}
 				else {
-					santa.position.x -= 10;
+					if (RandomBool()) {
+						santa_move.y = 5;
+					}
+					else {
+						santa_move.y = -5;
+					}
 				}
+
+				santa_moved_t = Scene::Time();
 			}
-			else {
-				if (RandomBool()) {
-					santa.position.y += 10;
-				}
-				else {
-					santa.position.y -= 10;
-				}
-			}
-		}*/
+		}
+		if (santa.position.x < 20 || santa.position.x > Scene::Width() - 20) {
+			santa.position.x -= santa_move.x;
+			santa_move = { 0, 0 };
+		}
+		if (santa.position.y < 20 || santa.position.y > 200) {
+			santa.position.y -= santa_move.y;
+			santa_move = { 0, 0 };
+		}
+		santa.position.x += santa_move.x;
+		santa.position.y += santa_move.y;
 
 		// サンタによる弾丸の発射
-		if (RandomBool()) {
-			santa_bullets.add(Point(santa.position.x, santa.position.y + 90), Vec2(Random<int>(-10, 10), 10));
+		if (RandomBool(0.2)) {
+			double dist = sqrt(pow(fighter.position.x - santa.position.x, 2) + pow(fighter.position.y - santa.position.y, 2));
+			santa_bullets.add(Point(santa.position.x, santa.position.y + 90),
+				Vec2(5 * (fighter.position.x - santa.position.x) / dist,
+					5 * (fighter.position.y - santa.position.y) / dist));
 		}
 
 		// プレイヤーによる弾丸の発射
 		if (KeySpace.pressed()) {
-			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -10));
+			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -5));
 		}
 
 		// HPの表示
