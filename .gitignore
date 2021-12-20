@@ -1,6 +1,8 @@
 /include
 /lib
-SantaGariMac/DerivedData
+SantaGariMac/projects/SantaGari/DerivedData
+SantaGariMac/include
+SantaGariMac/lib
 SantaGariWin/.vs/
 *.ilk
 *.pdb
@@ -37,6 +39,3 @@ DerivedData/
 
 ## Gcc Patch
 /*.gcno
-
-## Linux
-Linux/App/Albus-Box
