@@ -26,7 +26,7 @@ typedef struct _Charactor {
 		if (Scene::Time() < m_t + 1.0) {
 			return;
 		}
-		hp += 1;
+		hp += 0.5;
 		m_t = Scene::Time();
 	}
 
@@ -35,7 +35,7 @@ typedef struct _Charactor {
 			hp = 0;
 			return;
 		}
-		hp -= 2;
+		hp -= 1;
 	}
 } Charactor;
 

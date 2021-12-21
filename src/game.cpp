@@ -88,23 +88,25 @@ void game(String current_path) {
 				santa_moved_t = Scene::Time();
 			}
 		}
-		if (santa.position.x < 20 || santa.position.x > Scene::Width() - 20) {
+		if (santa.position.x < 40 || santa.position.x > Scene::Width() - 40) {
 			santa.position.x -= santa_move.x;
 			santa_move = { 0, 0 };
+			santa_moved_t = Scene::Time();
 		}
 		if (santa.position.y < 20 || santa.position.y > 200) {
 			santa.position.y -= santa_move.y;
 			santa_move = { 0, 0 };
+			santa_moved_t = Scene::Time();
 		}
 		santa.position.x += santa_move.x;
 		santa.position.y += santa_move.y;
 
 		// サンタによる弾丸の発射
 		if (RandomBool(0.2)) {
-			double dist = sqrt(pow(fighter.position.x - santa.position.x, 2) + pow(fighter.position.y - santa.position.y, 2));
+			double dist = sqrt(pow(fighter.position.x - santa.position.x + Random(-30, 30), 2) + pow(fighter.position.y - santa.position.y + Random(-30, 30), 2));
 			santa_bullets.add(Point(santa.position.x, santa.position.y + 90),
-				Vec2(5 * (fighter.position.x - santa.position.x) / dist,
-					5 * (fighter.position.y - santa.position.y - 50) / dist));
+				Vec2(5 * (fighter.position.x - santa.position.x + Random(-30, 30)) / dist,
+					5 * (fighter.position.y - santa.position.y + Random(-30, 30) - 50) / dist));
 		}
 
 		// プレイヤーによる弾丸の発射
