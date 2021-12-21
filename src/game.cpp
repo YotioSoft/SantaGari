@@ -23,6 +23,18 @@ void game(String current_path) {
 	// 弾丸
 	Bullet santa_bullets(U"{}/img/bullet.png"_fmt(current_path));
 	Bullet fighter_bullets(U"{}/img/bullet2.png"_fmt(current_path));
+	
+	// プレゼント
+	Present presents({
+		U"{}/img/present1.png"_fmt(current_path),
+		U"{}/img/present2.png"_fmt(current_path),
+		U"{}/img/present3.png"_fmt(current_path),
+		U"{}/img/present4.png"_fmt(current_path),
+	});
+	Texture present_image(U"{}/img/present1.png"_fmt(current_path));
+	
+	// 盗んだプレゼント数
+	int got_presents = 0;
 
 	// サンタの移動
 	double santa_moved_t = -10.0;
@@ -99,14 +111,26 @@ void game(String current_path) {
 		if (KeySpace.pressed()) {
 			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -5));
 		}
+		
+		// プレゼントの投下
+		if (RandomBool(0.1)) {
+			presents.add(Point(santa.position.x, santa.position.y + 90),
+						 Vec2(Random(-10, 10),
+							  5));
+		}
 
 		// HPの表示
 		Rect(Scene::Width() / 2, 10, -santa.hp * 2, 10).draw(Palette::Red);			// サンタ
 		Rect(Scene::Width() / 2, 10, fighter.hp * 2, 10).draw(Palette::Green);		// プレイヤー
-
+		
+		// 盗んだプレゼントの個数の表示
+		present_image.draw(10, 10);
+		FontAsset(U"Medium")(got_presents).drawAt(60, 25);
+		
 		// 当たり判定
 		santa_bullets.update();
 		fighter_bullets.update();
+		presents.update();
 
 		if (santa_bullets.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size())) {
 			fighter.damage();
@@ -119,6 +143,10 @@ void game(String current_path) {
 		}
 		else {
 			santa.recover();
+		}
+		
+		if (presents.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size())) {
+			got_presents++;
 		}
 	}
 }

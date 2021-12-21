@@ -3,6 +3,9 @@
 
 void Main()
 {
+	// アセットの登録
+	FontAsset::Register(U"Medium", 18, Typeface::Medium);
+	
 	game(U"SantaGari.app/Contents/Resources");
 
 	// 背景の色を設定 | Set background color

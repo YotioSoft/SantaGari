@@ -76,12 +76,14 @@ typedef struct Bullet {
 	typedef struct BulletPosition {
 		Vec2 position;
 		Vec2 direction;
+		Texture* texture;
 	} BulletPosition;
 
 	Texture m_texture;
 	Array<BulletPosition> m_position;
 	double m_last_add_time;
-
+	
+	Bullet(){}
 	Bullet(String img_filepath) {
 		m_texture = Texture(img_filepath);
 		m_last_add_time = 0;
@@ -96,7 +98,7 @@ typedef struct Bullet {
 	}
 
 	void update() {
-		for (int i = 0; i < m_position.size(); i++) {
+		for (unsigned long i = 0; i < m_position.size(); i++) {
 			m_texture.draw(Arg::center(m_position[i].position));
 			
 			m_position[i].position.x += m_position[i].direction.x;
@@ -111,7 +113,7 @@ typedef struct Bullet {
 	}
 
 	bool isHit(Point pos, Size size) {
-		for (int i = 0; i < m_position.size(); i++) {
+		for (unsigned long i = 0; i < m_position.size(); i++) {
 			if (m_position[i].position.x >= pos.x && m_position[i].position.y >= pos.y &&
 				m_position[i].position.x <= pos.x + size.x && m_position[i].position.y <= pos.y + size.y) {
 
@@ -124,5 +126,39 @@ typedef struct Bullet {
 		return false;
 	}
 } Bullet;
+
+typedef struct Present : Bullet {
+	Array<Texture> m_texture_templetes;
+	
+	Present(Array<String> img_filepaths) {
+		for (auto img_filepath : img_filepaths) {
+			m_texture_templetes << Texture(img_filepath);
+		}
+		m_last_add_time = 0;
+	}
+	
+	void add(Vec2 fighter_position, Vec2 direction) {
+		if (Scene::Time() < m_last_add_time + 0.1) {
+			return;
+		}
+		m_last_add_time = Scene::Time();
+		m_position << BulletPosition{fighter_position, direction, &m_texture_templetes[Random(m_texture_templetes.size()-1)]};
+	}
+	
+	void update() {
+		for (unsigned long i = 0; i < m_position.size(); i++) {
+			m_position[i].texture->draw(Arg::center(m_position[i].position));
+			
+			m_position[i].position.x += m_position[i].direction.x;
+			m_position[i].position.y += m_position[i].direction.y;
+
+			if (m_position[i].position.x < 0 || m_position[i].position.y < 0 ||
+				m_position[i].position.y > Scene::Width() || m_position[i].position.y > Scene::Height()) {
+				m_position.remove_at(i);
+				i--;
+			}
+		}
+	}
+} Present;
 
 #endif /* Header_h */

@@ -4,6 +4,10 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Resources/bgm/RAIN_&amp;_Co_II_2.mp3</key>
+		<data>
+		exepC5dhU+3a0gV/u5rIdxkHVfc=
+		</data>
 		<key>Resources/engine/font/fontawesome/LICENSE.txt</key>
 		<data>
 		mQfFUwb/+2hc4OBsnkaUdQNdX6Y=
@@ -279,6 +283,13 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Resources/bgm/RAIN_&amp;_Co_II_2.mp3</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sXRcBvened8QH/97g6e3HzCzGw/vhmptnBAkKNAs518=
+			</data>
+		</dict>
 		<key>Resources/engine/font/fontawesome/LICENSE.txt</key>
 		<dict>
 			<key>hash2</key>
