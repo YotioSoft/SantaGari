@@ -69,7 +69,7 @@ void game(String current_path) {
 
 			if (RandomBool()) {
 				if (RandomBool()) {
-					if (RandomBool()) {
+					if (RandomBool(0.5 - (santa.position.x - Scene::Width()/2)/Scene::Width())) {
 						santa_move.x = 5;
 					}
 					else {
