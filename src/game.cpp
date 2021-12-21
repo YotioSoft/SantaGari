@@ -1,6 +1,9 @@
 #include <game.hpp>
 
 void game(String current_path) {
+	// BGM
+	AudioAsset::Register(U"GameBGM", U"{}/bgm/Mission_Rank_3.mp3"_fmt(current_path), Loop::Yes);
+
 	// キャラクター
 	Charactor santa;
 	Charactor fighter;
@@ -39,6 +42,9 @@ void game(String current_path) {
 	// サンタの移動
 	double santa_moved_t = -10.0;
 	Vec2 santa_move = { 0, 0 };
+
+	// BGM再生
+	AudioAsset(U"GameBGM").play();
 
 	while (System::Update()) {
 		// 火花の描画
