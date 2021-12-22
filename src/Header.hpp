@@ -26,7 +26,7 @@ typedef struct _Charactor {
 		if (Scene::Time() < m_t + 1.0) {
 			return;
 		}
-		hp += 0.5;
+		hp += 0.25;
 		m_t = Scene::Time();
 	}
 
@@ -35,7 +35,7 @@ typedef struct _Charactor {
 			hp = 0;
 			return;
 		}
-		hp -= 1;
+		hp -= 0.5;
 	}
 } Charactor;
 
@@ -63,7 +63,7 @@ typedef struct Spark : IEffect {
 		for (const auto& particle : m_particles)
 		{
 			const Vec2 pos = particle.start
-				+ particle.velocity * t + 0.5 * t * t * Vec2(0, 240);
+				+ particle.velocity * t + t * t * Vec2(0, 240);
 
 			Triangle(pos, 16.0, pos.x * 5_deg).draw(ColorF(1.0, 1.0 - 0.6 * t, 1.0 - t, 1.0 - t * 1.5));
 		}

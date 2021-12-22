@@ -1,6 +1,8 @@
 #include <game.hpp>
 
 void game(String current_path) {
+	Scene::SetBackground(ColorF{ 0.1, 0.1, 0.4 });
+
 	// BGM
 	AudioAsset::Register(U"GameBGM", U"{}/bgm/Mission_Rank_3.mp3"_fmt(current_path), Loop::Yes);
 
@@ -116,9 +118,9 @@ void game(String current_path) {
 		}
 
 		// プレイヤーによる弾丸の発射
-		if (KeySpace.pressed()) {
+		//if (KeySpace.pressed()) {
 			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -5));
-		}
+		//}
 		
 		// プレゼントの投下
 		if (RandomBool(0.1)) {
@@ -128,7 +130,9 @@ void game(String current_path) {
 		}
 
 		// HPの表示
+		FontAsset(U"Medium")(U"SANTA").draw(Scene::Width() / 2 - 100 * 2 - 80, 2);
 		Rect(Scene::Width() / 2, 10, -santa.hp * 2, 10).draw(Palette::Red);			// サンタ
+		FontAsset(U"Medium")(U"YOU").draw(Scene::Width() / 2 + 100 * 2 + 30, 2);
 		Rect(Scene::Width() / 2, 10, fighter.hp * 2, 10).draw(Palette::Green);		// プレイヤー
 		
 		// 盗んだプレゼントの個数の表示
