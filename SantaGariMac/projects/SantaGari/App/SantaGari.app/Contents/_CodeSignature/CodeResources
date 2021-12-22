@@ -4,9 +4,9 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Resources/bgm/RAIN_&amp;_Co_II_2.mp3</key>
+		<key>Resources/bgm/Mission_Rank_3.mp3</key>
 		<data>
-		exepC5dhU+3a0gV/u5rIdxkHVfc=
+		R7PzifPaFG1gTkkRYK5Y/X6/dhg=
 		</data>
 		<key>Resources/engine/font/fontawesome/LICENSE.txt</key>
 		<data>
@@ -248,6 +248,14 @@
 		<data>
 		obA2StdDOfSpzf+Din2oYB7cPAg=
 		</data>
+		<key>Resources/img/logo.png</key>
+		<data>
+		m1fTokmAULrFxQBB95x0sYgkAu0=
+		</data>
+		<key>Resources/img/logo.svg</key>
+		<data>
+		mmFd4OWkiC2xWbzi0HNauZhiWdM=
+		</data>
 		<key>Resources/img/present1.png</key>
 		<data>
 		ZCyRKM3h1dklwku5GU91fW8qZqc=
@@ -283,11 +291,11 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Resources/bgm/RAIN_&amp;_Co_II_2.mp3</key>
+		<key>Resources/bgm/Mission_Rank_3.mp3</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sXRcBvened8QH/97g6e3HzCzGw/vhmptnBAkKNAs518=
+			ikM5XWCjzMf3csKWC50vS+RnUnrv04Oz3iFQ05iVCsA=
 			</data>
 		</dict>
 		<key>Resources/engine/font/fontawesome/LICENSE.txt</key>
@@ -708,6 +716,20 @@
 			<key>hash2</key>
 			<data>
 			ZU61ngLDfMHbFl7MwYO/CLpxqyR2dodAuIs6fYqspDk=
+			</data>
+		</dict>
+		<key>Resources/img/logo.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			dJ2K4IHEXIHaD6TOKQ+AnGblmnb6vNWK47o5U1N4nVI=
+			</data>
+		</dict>
+		<key>Resources/img/logo.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UGVAZWn/FgkYGrTtwMJVw84JfOkt5HtS4ROfpL6cpOs=
 			</data>
 		</dict>
 		<key>Resources/img/present1.png</key>

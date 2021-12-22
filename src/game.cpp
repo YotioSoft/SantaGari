@@ -1,6 +1,6 @@
 #include <game.hpp>
 
-void game(String current_path) {
+void game(const String current_path) {
 	Scene::SetBackground(ColorF{ 0.1, 0.1, 0.4 });
 
 	// BGM

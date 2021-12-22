@@ -10,6 +10,6 @@
 
 #include <Header.hpp>
 
-void game(String current_path);
+void game(const String current_path);
 
 #endif /* game_h */

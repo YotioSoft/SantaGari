@@ -38,6 +38,7 @@
 		2C5C471126B4F08E005E8C85 /* libzlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5C471026B4F08E005E8C85 /* libzlib.a */; };
 		2C6906D82298140F00A427D0 /* engine in Resources */ = {isa = PBXBuildFile; fileRef = 2C6906D72298140F00A427D0 /* engine */; };
 		4BCC2FC3277036DF00E59FE7 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC2FC2277036DF00E59FE7 /* game.cpp */; };
+		4BCC2FD22773A72800E59FE7 /* title.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC2FD02773A72800E59FE7 /* title.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,8 @@
 		4BCC2FC2277036DF00E59FE7 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../../../../src/game.cpp; sourceTree = "<group>"; };
 		4BCC2FC52770372D00E59FE7 /* Header.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Header.hpp; path = ../../../../src/Header.hpp; sourceTree = "<group>"; };
 		4BCC2FC82770383B00E59FE7 /* game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = game.hpp; path = ../../../../src/game.hpp; sourceTree = "<group>"; };
+		4BCC2FD02773A72800E59FE7 /* title.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = title.cpp; path = ../../../../src/title.cpp; sourceTree = "<group>"; };
+		4BCC2FD12773A72800E59FE7 /* title.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = title.hpp; path = ../../../../src/title.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +142,10 @@
 		2C1778981CE0AA7C00BB8AD0 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
 				4BCC2FC52770372D00E59FE7 /* Header.hpp */,
+				2C1778991CE0AA7C00BB8AD0 /* Main.cpp */,
+				4BCC2FD02773A72800E59FE7 /* title.cpp */,
+				4BCC2FD12773A72800E59FE7 /* title.hpp */,
 				4BCC2FC82770383B00E59FE7 /* game.hpp */,
 				4BCC2FC2277036DF00E59FE7 /* game.cpp */,
 			);
@@ -251,6 +256,7 @@
 			files = (
 				2C17789A1CE0AA7C00BB8AD0 /* Main.cpp in Sources */,
 				4BCC2FC3277036DF00E59FE7 /* game.cpp in Sources */,
+				4BCC2FD22773A72800E59FE7 /* title.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
