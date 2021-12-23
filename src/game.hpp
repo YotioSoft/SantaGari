@@ -17,7 +17,7 @@ typedef struct GameSetting {
 	double bullet_speed;
 } GameSetting;
 
-void start_game(const String current_path, const int level);
-void game(const String current_path, const GameSetting game_setting);
+void start_game(const String current_path, const int level, const bool bgm);
+void game(const String current_path, const GameSetting game_setting, const bool bgm);
 
 #endif /* game_h */

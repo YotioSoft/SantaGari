@@ -1,22 +1,22 @@
 #include <game.hpp>
 
-void start_game(const String current_path, const int level) {
+void start_game(const String current_path, const int level, const bool bgm) {
 	switch (level) {
 	case 1:
-		game(current_path, { 1.0, 0.1, 30, 3 });
+		game(current_path, { 1.0, 0.1, 30, 3 }, bgm);
 		break;
 	case 2:
-		game(current_path, { 0.5, 0.5, 10, 5 });
+		game(current_path, { 0.5, 0.5, 10, 5 }, bgm);
 		break;
 	case 3:
-		game(current_path, { 0.2, 0.8, 5, 10 });
+		game(current_path, { 0.2, 0.8, 5, 10 }, bgm);
 		break;
 	default:
 		break;
 	}
 }
 
-void game(const String current_path, const GameSetting game_setting) {
+void game(const String current_path, const GameSetting game_setting, const bool bgm) {
 	Scene::SetBackground(ColorF{ 0.1, 0.1, 0.4 });
 
 	// BGM
@@ -62,7 +62,8 @@ void game(const String current_path, const GameSetting game_setting) {
 	Vec2 santa_move = { 0, 0 };
 
 	// BGM再生
-	AudioAsset(U"GameBGM").play();
+	if (bgm)
+		AudioAsset(U"GameBGM").play();
 
 	while (System::Update()) {
 		// 火花の描画

@@ -20,4 +20,4 @@ OpenSiv3Dを始めとする各ライブラリのライセンスについては�
 
 ## BGM
 
-- [Mission Rank 3](https://dova-s.jp/bgm/play10068.html){:target="_blank"} written by MAKOOTO (DOVA-SYNDROME)
+- [Mission Rank 3](https://dova-s.jp/bgm/play10068.html) written by MAKOOTO (DOVA-SYNDROME)

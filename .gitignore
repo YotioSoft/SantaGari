@@ -12,6 +12,7 @@ SantaGariWin/.vs/
 *.log
 *.tlog
 SantaGariWin/Intermediate
+SantaGariWeb/*
 
 # Xcode
 #
