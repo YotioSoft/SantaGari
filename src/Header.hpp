@@ -169,6 +169,7 @@ namespace TitleReturn {
 		StartGameLv2,
 		StartGameLv3,
 		HowToPlay,
+		Back,
 		Exit
 	};
 }

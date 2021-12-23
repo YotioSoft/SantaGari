@@ -83,6 +83,7 @@ TitleReturn::Type select_level(const String current_path, bool& bgm) {
 	// アイコンの読み込み
 	Texture icon_bgm{ 0xf028_icon, 20 };
 	Texture icon_nobgm{ 0xf6a9_icon, 20 };
+	Texture back{ 0xf2ea_icon, 20 };
 
 	while (System::Update()) {
 		// ロゴ
@@ -97,6 +98,10 @@ TitleReturn::Type select_level(const String current_path, bool& bgm) {
 		}
 		if (RoundRectButton(U"Level3", Point(Scene::Width() / 2, 450), Size(250, 40))) {
 			return TitleReturn::StartGameLv3;
+		}
+		
+		if (RoundRectButton(back, U"Back", Point(Scene::Width() / 2, 520), Size(100, 30))) {
+			return TitleReturn::Back;
 		}
 		
 		// BGMのON/OFF
@@ -116,11 +121,20 @@ void how_to_play() {
 
 	// アイコンの読み込み
 	Texture icon_arrows{ 0xf0b2_icon, 20 };
+	Texture back{ 0xf2ea_icon, 20 };
 	
-	RectF rf1(10, 10, Scene::Width()-10, 100);
+	RectF rf1(20, 50, Scene::Width()-30, 150);
 
 	while (System::Update()) {
-		FontAsset(U"Medium")(U"ルール").draw(10, 10);
-		FontAsset(U"Small")(U"サンタを狙撃する古典的なシューティングゲームです。戦闘機を操作し、迎撃を躱しつつサンタを狙い撃ちましょう。サンタはプレゼントを配りながら飛行します。プレゼントは獲得（横取り）するほどポイントが上がります。").draw(rf1);
+		FontAsset(U"Large")(U"ルール").draw(10, 10);
+		FontAsset(U"Medium")(U"サンタを狙撃する古典的なシューティングゲームです。戦闘機を操作し、迎撃を躱しつつサンタを狙い撃ちましょう。\nサンタはプレゼントを配りながら飛行します。 プレゼントは獲得（横取り）するほどポイントが上がります。").draw(rf1);
+		
+		FontAsset(U"Large")(U"操作方法").draw(10, 200);
+		icon_arrows.draw(20, 240);
+		FontAsset(U"Medium")(U"十字キー：戦闘機の操作").draw(50, 235);
+		
+		if (RoundRectButton(back, U"Back", Point(Scene::Width() / 2, 520), Size(100, 30))) {
+			return;
+		}
 	}
 }

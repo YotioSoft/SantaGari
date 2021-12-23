@@ -1,22 +1,19 @@
 #include <game.hpp>
 
-void start_game(const String current_path, const int level, const bool bgm) {
+bool start_game(const String current_path, const int level, const bool bgm) {
 	switch (level) {
 	case 1:
-		game(current_path, { 1.0, 0.1, 30, 3 }, bgm);
-		break;
+		return game(current_path, { 1, 1.0, 0.1, 30, 3 }, bgm);
 	case 2:
-		game(current_path, { 0.5, 0.5, 10, 5 }, bgm);
-		break;
+		return game(current_path, { 2, 0.5, 0.5, 10, 5 }, bgm);
 	case 3:
-		game(current_path, { 0.2, 0.8, 5, 10 }, bgm);
-		break;
+		return game(current_path, { 3, 0.2, 0.8, 5, 10 }, bgm);
 	default:
-		break;
+		return true;
 	}
 }
 
-void game(const String current_path, const GameSetting game_setting, const bool bgm) {
+bool game(const String current_path, const GameSetting game_setting, const bool bgm) {
 	Scene::SetBackground(ColorF{ 0.1, 0.1, 0.4 });
 
 	// BGM
@@ -94,7 +91,7 @@ void game(const String current_path, const GameSetting game_setting, const bool 
 
 			if (RandomBool()) {
 				if (RandomBool()) {
-					if (RandomBool(0.5 - (santa.position.x - Scene::Width()/2)/Scene::Width())) {
+					if (RandomBool(0.5 - (santa.position.x - Scene::Width()/2)/Scene::Width()/2)) {
 						santa_move.x = 5;
 					}
 					else {
@@ -178,5 +175,55 @@ void game(const String current_path, const GameSetting game_setting, const bool 
 		if (presents.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size())) {
 			got_presents++;
 		}
+		
+		// ゲームセット
+		if (santa.hp <= 0.0) {
+			santa.hp = 0.0;
+			return result_win(santa, fighter, got_presents, game_setting.level);
+		}
+		if (fighter.hp <= 0.0) {
+			fighter.hp = 0.0;
+			return result_lose(santa, fighter, got_presents);
+		}
 	}
+	
+	return false;
+}
+
+bool result_win(const Charactor santa, const Charactor fighter, const int got_presents, const int level) {
+	Texture back{ 0xf2ea_icon, 20 };
+	
+	int score = fighter.hp * 100 * level + got_presents;
+	
+	while (System::Update()) {
+		FontAsset(U"Large")(U"You Win!").draw(Arg::center(Scene::Width()/2, 200));
+		
+		FontAsset(U"Medium")(U"SANTA HP:\t{}\nYOUR HP:\t{}\nGOT GIFTS:\t{}"_fmt(santa.hp, fighter.hp, got_presents)).draw(Arg::center(Scene::Width()/2, 300));
+		
+		FontAsset(U"Medium")(U"SCORE:\t{}"_fmt(score)).draw(Arg::center(Scene::Width()/2, 400));
+		
+		if (RoundRectButton(back, U"Back", Point(Scene::Width() / 2, 520), Size(100, 30))) {
+			AudioAsset(U"GameBGM").stop();
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+bool result_lose(const Charactor santa, const Charactor fighter, const int got_presents) {
+	Texture back{ 0xf2ea_icon, 20 };
+	
+	while (System::Update()) {
+		FontAsset(U"Large")(U"You Lose..").draw(Arg::center(Scene::Width()/2, 200));
+		
+		FontAsset(U"Medium")(U"SANTA HP:\t{}\nYOUR HP:\t{}\nGOT GIFTS:\t{}"_fmt(santa.hp, fighter.hp, got_presents)).draw(Arg::center(Scene::Width()/2, 300));
+		
+		if (RoundRectButton(back, U"Back", Point(Scene::Width() / 2, 520), Size(100, 30))) {
+			AudioAsset(U"GameBGM").stop();
+			return true;
+		}
+	}
+	
+	return false;
 }
