@@ -96,9 +96,9 @@ bool game(const String current_path, const GameSetting game_setting, const bool 
 		if (Scene::Time() > santa_moved_t + game_setting.santa_move_freq) {
 			santa_move = { 0, 0 };
 
-			if (RandomBool()) {
+			if (RandomBool(0.8)) {
 				if (RandomBool()) {
-					if (RandomBool(0.5 - (santa.position.x - Scene::Width()/2)/Scene::Width()/2)) {
+					if (RandomBool()) {
 						santa_move.x = 5;
 					}
 					else {
@@ -118,14 +118,22 @@ bool game(const String current_path, const GameSetting game_setting, const bool 
 			}
 		}
 		if (santa.position.x < 40 || santa.position.x > Scene::Width() - 40) {
-			santa.position.x -= santa_move.x;
-			santa_move = { 0, 0 };
-			santa_moved_t = Scene::Time();
+			santa_move = { -santa_move.x, -santa_move.y };
+			if (santa.position.x < 40) {
+				santa.position.x += 10;
+			}
+			else {
+				santa.position.x -= 10;
+			}
 		}
 		if (santa.position.y < 20 || santa.position.y > 200) {
-			santa.position.y -= santa_move.y;
-			santa_move = { 0, 0 };
-			santa_moved_t = Scene::Time();
+			santa_move = { -santa_move.x, -santa_move.y };
+			if (santa.position.y < 20) {
+				santa.position.y += 10;
+			}
+			else {
+				santa.position.y -= 10;
+			}
 		}
 		santa.position.x += santa_move.x;
 		santa.position.y += santa_move.y;
