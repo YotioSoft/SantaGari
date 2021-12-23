@@ -41,6 +41,13 @@ bool game(const String current_path, const GameSetting game_setting, const bool 
 	// 弾丸
 	Bullet santa_bullets(U"{}/img/bullet.png"_fmt(current_path));
 	Bullet fighter_bullets(U"{}/img/bullet2.png"_fmt(current_path));
+
+	// 雪玉（背景用）
+	Bullet snowballs(U"{}/img/snow.png"_fmt(current_path));
+	Vec2 snowball_vec = { 0, 20 };
+	for (int i = 0; i < 10; i++) {
+		snowballs.add({ Random(0, Scene::Width()), Random(0, Scene::Height()) }, snowball_vec);
+	}
 	
 	// プレゼント
 	Present presents({
@@ -144,6 +151,11 @@ bool game(const String current_path, const GameSetting game_setting, const bool 
 							  5));
 		}
 
+		// 雪玉の追加
+		if (RandomBool(0.1)) {
+			snowballs.add({ Random(0, Scene::Width()), 0 }, snowball_vec);
+		}
+
 		// HPの表示
 		FontAsset(U"Medium")(U"SANTA").draw(Scene::Width() / 2 - 100 * 2 - 80, 2);
 		Rect(Scene::Width() / 2, 10, -santa.hp * 2, 10).draw(Palette::Red);			// サンタ
@@ -158,6 +170,7 @@ bool game(const String current_path, const GameSetting game_setting, const bool 
 		santa_bullets.update();
 		fighter_bullets.update();
 		presents.update();
+		snowballs.update();
 
 		if (santa_bullets.isHit({ fighter.position.x - 20, fighter.position.y - 20 }, fighter.texture.size())) {
 			fighter.damage();
