@@ -5,6 +5,8 @@
 //  Created by YotioSoft on 2021/12/20.
 //
 
+#pragma once
+
 #ifndef Header_h
 #define Header_h
 
@@ -160,5 +162,15 @@ typedef struct Present : Bullet {
 		}
 	}
 } Present;
+
+namespace TitleReturn {
+	enum Type {
+		StartGameLv1,
+		StartGameLv2,
+		StartGameLv3,
+		HowToPlay,
+		Exit
+	};
+}
 
 #endif /* Header_h */

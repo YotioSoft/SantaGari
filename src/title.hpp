@@ -11,6 +11,9 @@
 #include "Header.hpp"
 
 bool RoundRectButton(Texture& icon, const String text, const Point position, const Size size);
-int title(const String current_path);
+bool RoundRectButton(const String text, const Point position, const Size size);
+
+TitleReturn::Type title(const String current_path);
+TitleReturn::Type select_level(const String current_path);
 
 #endif /* title_hpp */

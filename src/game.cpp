@@ -1,6 +1,22 @@
 #include <game.hpp>
 
-void game(const String current_path) {
+void start_game(const String current_path, const int level) {
+	switch (level) {
+	case 1:
+		game(current_path, { 1.0, 0.1, 30, 3 });
+		break;
+	case 2:
+		game(current_path, { 0.5, 0.5, 10, 5 });
+		break;
+	case 3:
+		game(current_path, { 0.2, 0.8, 5, 10 });
+		break;
+	default:
+		break;
+	}
+}
+
+void game(const String current_path, const GameSetting game_setting) {
 	Scene::SetBackground(ColorF{ 0.1, 0.1, 0.4 });
 
 	// BGM
@@ -72,7 +88,7 @@ void game(const String current_path) {
 		}
 
 		// サンタの移動
-		if (Scene::Time() > santa_moved_t + 1.0) {
+		if (Scene::Time() > santa_moved_t + game_setting.santa_move_freq) {
 			santa_move = { 0, 0 };
 
 			if (RandomBool()) {
@@ -110,16 +126,17 @@ void game(const String current_path) {
 		santa.position.y += santa_move.y;
 
 		// サンタによる弾丸の発射
-		if (RandomBool(0.2)) {
-			double dist = sqrt(pow(fighter.position.x - santa.position.x + Random(-30, 30), 2) + pow(fighter.position.y - santa.position.y + Random(-30, 30), 2));
+		if (RandomBool(game_setting.santa_bullet_freq)) {
+			double dist = sqrt(pow(fighter.position.x - santa.position.x + Random(-game_setting.santa_bullet_range, game_setting.santa_bullet_range), 2) 
+				+ pow(fighter.position.y - santa.position.y + Random(-game_setting.santa_bullet_range, game_setting.santa_bullet_range), 2));
 			santa_bullets.add(Point(santa.position.x, santa.position.y + 90),
-				Vec2(5 * (fighter.position.x - santa.position.x + Random(-30, 30)) / dist,
-					5 * (fighter.position.y - santa.position.y + Random(-30, 30) - 50) / dist));
+				Vec2(game_setting.bullet_speed * (fighter.position.x - santa.position.x + Random(-game_setting.santa_bullet_range, game_setting.santa_bullet_range)) / dist,
+					game_setting.bullet_speed * (fighter.position.y - santa.position.y + Random(-game_setting.santa_bullet_range, game_setting.santa_bullet_range) - 50) / dist));
 		}
 
 		// プレイヤーによる弾丸の発射
 		//if (KeySpace.pressed()) {
-			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -5));
+			fighter_bullets.add(Point(fighter.position.x, fighter.position.y - 32), Vec2(0, -game_setting.bullet_speed));
 		//}
 		
 		// プレゼントの投下

@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\game.cpp" />
+    <ClCompile Include="..\..\src\title.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -316,6 +317,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\game.hpp" />
     <ClInclude Include="..\..\src\Header.hpp" />
+    <ClInclude Include="..\..\src\title.hpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
