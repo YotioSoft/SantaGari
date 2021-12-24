@@ -219,7 +219,7 @@ bool result_win(const Charactor santa, const Charactor fighter, const int got_pr
 	while (System::Update()) {
 		FontAsset(U"Large")(U"You Win!").draw(Arg::center(Scene::Width()/2, 200));
 		
-		FontAsset(U"Medium")(U"SANTA HP:\t{}\nYOUR HP:\t{}\nGOT GIFTS:\t{}"_fmt(santa.hp, fighter.hp, got_presents)).draw(Arg::center(Scene::Width()/2, 300));
+		FontAsset(U"Medium")(U"SANTA HP:\t{}\nYOUR HP:\t{}\nPRESENTS:\t{}"_fmt(santa.hp, fighter.hp, got_presents)).draw(Arg::center(Scene::Width()/2, 300));
 		
 		FontAsset(U"Medium")(U"SCORE:\t{}"_fmt(score)).draw(Arg::center(Scene::Width()/2, 400));
 		
@@ -238,7 +238,7 @@ bool result_lose(const Charactor santa, const Charactor fighter, const int got_p
 	while (System::Update()) {
 		FontAsset(U"Large")(U"You Lose..").draw(Arg::center(Scene::Width()/2, 200));
 		
-		FontAsset(U"Medium")(U"SANTA HP:\t{}\nYOUR HP:\t{}\nGOT GIFTS:\t{}"_fmt(santa.hp, fighter.hp, got_presents)).draw(Arg::center(Scene::Width()/2, 300));
+		FontAsset(U"Medium")(U"SANTA HP:\t{}\nYOUR HP:\t{}\nPRESENTS:\t{}"_fmt(santa.hp, fighter.hp, got_presents)).draw(Arg::center(Scene::Width()/2, 300));
 		
 		if (RoundRectButton(back, U"Back", Point(Scene::Width() / 2, 520), Size(100, 30))) {
 			AudioAsset(U"GameBGM").stop();
