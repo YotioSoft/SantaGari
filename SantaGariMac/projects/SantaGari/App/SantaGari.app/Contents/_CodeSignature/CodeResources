@@ -254,7 +254,7 @@
 		</data>
 		<key>Resources/img/logo.svg</key>
 		<data>
-		mmFd4OWkiC2xWbzi0HNauZhiWdM=
+		Elx7JVf66P3oj/EiBb4TD4+ULnA=
 		</data>
 		<key>Resources/img/present1.png</key>
 		<data>
@@ -279,6 +279,10 @@
 		<key>Resources/img/santa_sori.png</key>
 		<data>
 		Ztwh7YOgd6OfYr2Tw2CGVFRw3xs=
+		</data>
+		<key>Resources/img/snow.png</key>
+		<data>
+		p1EobdpyW6sr0WB9RcbQ0PMo4DY=
 		</data>
 		<key>Resources/img/sori.png</key>
 		<data>
@@ -729,7 +733,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UGVAZWn/FgkYGrTtwMJVw84JfOkt5HtS4ROfpL6cpOs=
+			+5fxPd+NhFuls2KDlnyrDiTip44Ib+Gg3sUs/h2klkI=
 			</data>
 		</dict>
 		<key>Resources/img/present1.png</key>
@@ -772,6 +776,13 @@
 			<key>hash2</key>
 			<data>
 			IERrm6ntroNxmdx0mtNo0po5yzeVp/qDTMrFGf3ZvmI=
+			</data>
+		</dict>
+		<key>Resources/img/snow.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oh5DY0KTC4qZU8PiL/V+fNAB1o0M0Zd9VWhLTdbxHOA=
 			</data>
 		</dict>
 		<key>Resources/img/sori.png</key>
